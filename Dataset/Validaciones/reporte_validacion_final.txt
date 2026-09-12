@@ -1,0 +1,66 @@
+REPORTE DE VALIDACIÓN - DATASET FINAL
+Fecha: 2026-09-12 02:08:43
+Dataset: dataset_final.csv
+
+1. Encoding UTF-8: [APROBADO]
+  Encoding UTF-8 válido sin BOM
+
+2. Delimitador y columnas: [APROBADO]
+  Delimitador correcto. Todas las filas tienen 13 columnas
+
+3. Campos vacíos: [APROBADO]
+  Total de campos vacíos: 60000
+    Porcentaje: 4.62%
+    Por columna: {'id_producto': 30000, 'categoria_producto': 30000}
+    Por tipo de evento: {'SOPORTE_TICKET': 20000, 'REGISTRO_CLIENTE': 10000}
+    Campos nuevos vacíos (dias_entrega/tramo_regional/costo_soporte): 0
+    NOTA: Campos vacíos son normales para SOPORTE_TICKET y REGISTRO_CLIENTE
+
+4. Tipos de datos: [APROBADO]
+  Todos los tipos de datos son correctos
+
+5. Consistencia lógica: [APROBADO]
+  Consistencia lógica correcta
+
+6. Tamaño de registros: [APROBADO]
+  50,000 registros mínimo cumplido
+    Total de líneas: 100001
+    Total de registros (sin header): 100000
+    Tiene header: Sí
+    Mínimo requerido: 50,000
+
+7. IDs duplicados: [APROBADO]
+  No hay IDs de evento duplicados
+
+8. Estructura de columnas: [APROBADO]
+  Estructura de columnas correcta
+
+9. Nuevos campos (dias_entrega, tramo_regional, costo_soporte): [APROBADO]
+  Distribución de tramos regionales: {'Centro': 40417, 'Sur': 20140, 'Norte': 39443}
+    
+    Promedio de días por estado logístico:
+      - En_Bodega: 1.5 días (n=3015)
+      - En_Ruta: 4.5 días (n=4581)
+      - Entregado: 9.0 días (n=16493)
+      - Retrasado: 22.6 días (n=5911)
+    
+    Costo promedio por tipo de ticket:
+      - Consulta: $25.18 (n=4958)
+      - Reclamo_Garantia: $125.07 (n=4989)
+      - Devolucion: $300.13 (n=5001)
+      - Facturacion: $50.12 (n=5052)
+
+RESUMEN: 9/9 tests aprobados
+
+COMPARACIÓN CON DATASET ORIGINAL:
+- Dataset original: 10 columnas, 100,000 registros
+- Dataset final: 13 columnas, 100,000 registros
+- Nuevos campos: dias_entrega, tramo_regional, costo_soporte
+- Los 8 tests originales siguen pasando
+- Se agregó test de nuevos campos (test 9)
+
+PRÓXIMOS PASOS:
+- El dataset_final.csv está listo para cargar en HDFS
+- Proceder a crear la estructura de directorios en HDFS
+- Crear tablas en Hive con las 13 columnas
+- Ejecutar consultas de análisis por tramo regional y costo de soporte

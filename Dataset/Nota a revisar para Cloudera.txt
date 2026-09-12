@@ -1,0 +1,3 @@
+Usen el dataset_final para operar en Cloudera, ese dataset esta listo, el otro tenía unas complicaciones pero esta para que funcione para considerar la limpieza y arreglo antes de ser utilizado. 
+
+Se hizo, además, un nuevo test de validación donde se comprobó que permite su uso operativo en Cloudera así como un pequeño reporte de esto explicado para que se tome noción. El reporte se auto genera al ejecutar el test de validación. 

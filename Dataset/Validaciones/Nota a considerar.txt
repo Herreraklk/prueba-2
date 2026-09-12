@@ -1,0 +1,43 @@
+NOTA: VALIDACIÓN DEL DATASET ACTUAL
+====================================
+
+PROPÓSITO DE ESTA VALIDACIÓN:
+Antes de modificar el seed y generar el dataset_final.csv, es necesario conocer el estado
+actual del dataset para identificar problemas que puedan afectar la compatibilidad con
+Cloudera CDH 5.13.0.
+
+QUÉ VERIFICAMOS Y POR QUÉ:
+1. Encoding UTF-8: Hive y Pig fallan si el encoding no es compatible
+2. Delimitador: Si las filas tienen diferente número de columnas, la carga falla
+3. Campos vacíos: Generan valores NULL en Hive que pueden causar errores en consultas
+4. Tipos de datos: Fechas mal formateadas impiden análisis temporal
+5. Consistencia lógica: Reglas de negocio incorrectas generan resultados erróneos
+6. Tamaño: El mínimo es 50,000 registros según el enunciado
+7. Duplicados: IDs duplicados causan conteos incorrectos en agregaciones
+8. Estructura: Columnas incorrectas impiden la creación de tablas en Hive
+
+RESULTADOS OBTENIDOS:
+- Todos los 8 tests aprobados
+- Dataset es compatible con Cloudera
+- Encoding UTF-8 válido
+- 100,000 registros (cumple mínimo de 50,000)
+- 59,862 campos vacíos en columnas id_producto y categoria_producto
+- Estos campos vacíos son normales para SOPORTE_TICKET y REGISTRO_CLIENTE
+
+QUÉ HACER CON ESTA INFORMACIÓN:
+1. El dataset actual es válido para Cloudera, no hay problemas de encoding ni delimitador
+2. Los campos vacíos en SOPORTE_TICKET y REGISTRO_CLIENTE son esperados y correctos
+3. Podemos proceder a modificar el seed con confianza
+4. Al generar dataset_final.csv, debemos mantener estas características válidas
+
+CAMBIOS PROPUESTOS PARA EL SEED:
+- Agregar campo dias_entrega (0-30 días, distribución realista)
+- Agregar campo tramo_regional (derivado de ciudad)
+- Agregar campo costo_soporte (variable por tipo de ticket)
+- Fechas futuras para tickets de soporte (después de la venta)
+- Registros de cliente únicos por usuario
+- Mantener encoding UTF-8 y delimitador por comas
+
+COMPARACIÓN FUTURA:
+Cuando generemos dataset_final.csv, ejecutaremos esta misma validación para confirmar
+que los nuevos campos no rompen la estructura del dataset original.

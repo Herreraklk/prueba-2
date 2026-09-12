@@ -1,0 +1,91 @@
+El seed original generaba un dataset básico con 10 campos. 
+
+Para el proyecto Big Data necesitamos campos adicionales que permitan análisis más profundos en Hive, Impala, MapReduce y Pig. 
+
+Estos nuevos campos enriquecen el dataset y justifican el uso de múltiples herramientas del ecosistema Hadoop.
+
+CAMBIOS REALIZADOS:
+
+1. CAMPO 'dias_entrega' (0-30 días)
+
+   - Permitir análisis logísticos de tiempos de entrega
+
+   - Cada estado de logística tiene un rango diferente de días
+     En_Bodega: 0-3 días (aún no sale del almacén)
+     En_Ruta: 2-7 días (en tránsito normal)
+     Entregado: 3-15 días (entrega completada)
+     Retrasado: 15-30 días (entrega con problemas)
+   
+   - Permite calcular tiempos promedios por región y canal
+
+2. CAMPO 'tramo_regional' (derivado de ciudad)
+   	
+   - Agrupa ciudades en regiones para análisis regional
+
+   - Mapeo:
+      Santiago es Centro
+      Valparaíso es Centro
+      Concepción es Sur
+      Antofagasta es Norte
+      La Serena es Norte
+   
+   - Permite comparar rendimiento entre regiones
+
+3. CAMPO 'costo_soporte' (0-500)
+
+   - Cuantifica el impacto económico del soporte
+   
+   - Cada tipo de ticket tiene un rango diferente de costos
+     
+     Consulta: 0-50 (atención básica)
+     
+     Reclamo_Garantía: 50-200 (gestión de garantía)
+     
+     Devolución: 100-500 (devolución y reposición)
+     
+     Facturación: 0-100 (gestión documental)
+   
+   - Permite calcular costos totales de soporte por región
+
+4. FECHAS FUTURAS PARA SOPORTE
+   - Simula que los tickets se generan después de la venta
+   - Los tickets tienen fecha 1-30 días después de la venta original
+   - Permite análisis temporales de satisfacción del cliente
+
+5. REGISTROS DE CLIENTE ÚNICOS
+   - Evita duplicados en registros de usuario
+   - Cada usuario solo aparece una vez en REGISTRO_CLIENTE
+   - Permite conteos precisos de nuevos clientes
+
+DISTRIBUCIÓN FINAL:
+
+- TRANSACCION_VENTA: 40,000 registros (40%)
+- LOGISTICA_ENVIO: 30,000 registros (30%)
+- SOPORTE_TICKET: 20,000 registros (20%)
+- REGISTRO_CLIENTE: 10,000 registros (10%)
+
+PARA EJECUTAR:
+
+1. Abrir terminal en la carpeta Scripts/SeedGenerador
+
+2. Ejecutar: python generador_dataset.py
+
+3. El archivo dataset_final.csv se generará en la misma carpeta
+
+4. Copiar a Dataset/dataset_final.csv
+
+IMPACTO EN HADOOP:
+
+- Hive: Los nuevos campos permiten CREATE TABLE con más columnas
+
+- Impala: Las consultas pueden usar tramo_regional para agrupaciones
+
+- Pig: Se pueden hacer transformaciones más complejas
+
+- MapReduce: Se pueden contar eventos por tramo regional
+
+- Sqoop: La estructura es compatible con importación desde BD
+
+VALIDACIÓN:
+
+Después de generar dataset_final.csv, ejecutar el script de validación para confirmar que todos los tests pasan con los nuevos campos.

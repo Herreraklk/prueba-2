@@ -1,0 +1,44 @@
+REPORTE DE VALIDACIÓN - DATASET ACTUAL
+Fecha: 2026-09-12 01:29:44
+Dataset: dataset_operaciones_empresa.csv
+============================================================
+
+1. Encoding UTF-8: [APROBADO]
+  Encoding UTF-8 válido sin BOM
+
+2. Delimitador y columnas: [APROBADO]
+  Delimitador correcto. Todas las filas tienen 10 columnas
+
+3. Campos vacíos: [APROBADO]
+  Total de campos vacíos: 59862
+    Porcentaje: 5.99%
+    Por columna: {'id_producto': 29931, 'categoria_producto': 29931}
+    Por tipo de evento: {'REGISTRO_CLIENTE': 10062, 'SOPORTE_TICKET': 19869}
+    NOTA: Campos vacíos son normales para SOPORTE_TICKET y REGISTRO_CLIENTE (no tienen producto)
+
+4. Tipos de datos: [APROBADO]
+  Todos los tipos de datos son correctos
+
+5. Consistencia lógica: [APROBADO]
+  Consistencia lógica correcta
+
+6. Tamaño de registros: [APROBADO]
+  50,000 registros mínimo cumplido
+    Total de líneas: 100001
+    Total de registros (sin header): 100000
+    Tiene header: Sí
+    Mínimo requerido: 50,000
+
+7. IDs duplicados: [APROBADO]
+  No hay IDs de evento duplicados
+
+8. Estructura de columnas: [APROBADO]
+  Estructura de columnas correcta
+
+============================================================
+RESUMEN: 8/8 tests aprobados
+
+ACCIONES RECOMENDADAS:
+- Dataset actual es compatible con Cloudera
+- Proceder a modificar el seed para agregar nuevos campos
+- Generar dataset_final.csv con los cambios
